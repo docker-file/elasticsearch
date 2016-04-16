@@ -14,27 +14,46 @@
 ##   See the License for the specific language governing permissions and
 ##   limitations under the License.
 ##
-FROM sys/java:latest
+FROM centos
+MAINTAINER Dmitry Kolesnikov <dmkolesnikov@gmail.com>
 
 ##
 ##
-ENV   VSN   1.6.0
+ARG JAVA=1.8.0
+ARG ELASTICSEARCH=1.7.0
+ENV ROOT=/usr/local
 
 ##
-## config
-WORKDIR /usr/local
+## Install Java
+RUN \
+   yum update -y && \
+   yum install -y java-${JAVA}-openjdk && \
+   yum clean all   
 
-RUN curl -k -L -O \
-   https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${VSN}.tar.gz
-RUN tar -xvzf elasticsearch-${VSN}.tar.gz
-RUN ln -s elasticsearch-${VSN} elasticsearch
-RUN rm elasticsearch-${VSN}.tar.gz
+
+##
+## Install Elastic Search
+RUN \
+   cd / && \
+   curl -k -L -O \
+      https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${ELASTICSEARCH}.tar.gz
+
+RUN \
+   cd / && \
+   tar -C ${ROOT} -xvzf elasticsearch-${ELASTICSEARCH}.tar.gz && \
+   ln -s ${ROOT}/elasticsearch-${ELASTICSEARCH} ${ROOT}/elasticsearch && \
+   rm elasticsearch-${ELASTICSEARCH}.tar.gz
+
+##
+## Install Elastic Search plug-ins
+RUN ${ROOT}/elasticsearch/bin/plugin --install elasticsearch/elasticsearch-cloud-aws/2.7.1
+RUN ${ROOT}/elasticsearch/bin/plugin --install mobz/elasticsearch-head
+RUN ${ROOT}/elasticsearch/bin/plugin --install royrusso/elasticsearch-HQ
+RUN ${ROOT}/elasticsearch/bin/plugin --install karmi/elasticsearch-paramedic
 
 
 VOLUME ["/mnt/vol1"]
-
-
-ADD elasticsearch.yml /usr/local/elasticsearch/config/elasticsearch.yml
+ADD elasticsearch.yml ${ROOT}/elasticsearch/config/elasticsearch.yml
 
 ##
 ##
@@ -43,4 +62,4 @@ EXPOSE 9300
 
 ##
 ##
-CMD "/usr/local/elasticsearch/bin/elasticsearch"
+CMD ${ROOT}/elasticsearch/bin/elasticsearch

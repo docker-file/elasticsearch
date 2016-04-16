@@ -1,17 +1,33 @@
-USR ?= app
+##
+## container identity
+IID ?= fogfish
 APP ?= elasticsearch
-VSN ?= latest
-
-FLAGS = \
-	-p 9200:9200
-
-
-all:
-	docker build -t ${USR}/${APP}:${VSN} .
-
-run:
-	docker run -it ${FLAGS} ${USR}/${APP}:${VSN}
-
+VSN ?= 1.7.0
 
 ##
-## docker run -d -p 9200:9200 -p 9300:9300 -v <data-dir>:/data dockerfile/elasticsearch /elasticsearch/bin/elasticsearch -Des.config=/data/elasticsearch.yml
+## image build flags
+DFLAGS = \
+   --rm=true \
+   --build-arg JAVA=1.8.0 \
+   --build-arg ELASTICSEARCH=${VSN}
+
+##
+## image run flags
+IFLAGS = \
+	-p 9200:9200
+
+##
+## build container
+docker: Dockerfile
+	docker build ${DFLAGS} -t ${IID}/${APP}:${VSN} . 
+
+##
+## 
+run:
+	docker run -it ${IFLAGS} ${IID}/${APP}:${VSN}
+
+##
+##
+debug:
+	docker run -it ${IFLAGS} ${IID}/${APP}:${VSN} bash
+

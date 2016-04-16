@@ -1,6 +1,5 @@
 path:
    data:    /mnt/vol1/data
    logs:    /mnt/vol1/log
-   plugins: /mnt/vol1/plugins
    work:    /mnt/vol1/work
 
