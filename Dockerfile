@@ -46,10 +46,11 @@ RUN \
 
 ##
 ## Install Elastic Search plug-ins
-RUN ${ROOT}/elasticsearch/bin/plugin --install elasticsearch/elasticsearch-cloud-aws/2.7.1
-RUN ${ROOT}/elasticsearch/bin/plugin --install mobz/elasticsearch-head
-RUN ${ROOT}/elasticsearch/bin/plugin --install royrusso/elasticsearch-HQ
-RUN ${ROOT}/elasticsearch/bin/plugin --install karmi/elasticsearch-paramedic
+RUN ${ROOT}/elasticsearch/bin/plugin install cloud-aws
+RUN ${ROOT}/elasticsearch/bin/plugin install discovery-multicast
+RUN ${ROOT}/elasticsearch/bin/plugin install mobz/elasticsearch-head
+RUN ${ROOT}/elasticsearch/bin/plugin install royrusso/elasticsearch-HQ
+RUN ${ROOT}/elasticsearch/bin/plugin install karmi/elasticsearch-paramedic
 
 
 VOLUME ["/mnt/vol1"]
@@ -62,4 +63,4 @@ EXPOSE 9300
 
 ##
 ##
-CMD ${ROOT}/elasticsearch/bin/elasticsearch
+CMD ${ROOT}/elasticsearch/bin/elasticsearch -Des.insecure.allow.root=true
