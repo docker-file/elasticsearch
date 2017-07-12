@@ -2,7 +2,7 @@
 ## container identity
 IID ?= fogfish
 APP ?= elasticsearch
-VSN ?= 2.3.2
+VSN ?= 5.3.0
 
 ##
 ## image build flags

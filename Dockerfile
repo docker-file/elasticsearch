@@ -19,8 +19,8 @@ MAINTAINER Dmitry Kolesnikov <dmkolesnikov@gmail.com>
 
 ##
 ##
-ARG JAVA=1.8.0
-ARG ELASTICSEARCH=1.7.0
+ARG JAVA=
+ARG ELASTICSEARCH=
 ENV ROOT=/usr/local
 
 ##
@@ -36,21 +36,13 @@ RUN \
 RUN \
    cd / && \
    curl -k -L -O \
-      https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${ELASTICSEARCH}.tar.gz
+      https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ELASTICSEARCH}.tar.gz
 
 RUN \
    cd / && \
    tar -C ${ROOT} -xvzf elasticsearch-${ELASTICSEARCH}.tar.gz && \
    ln -s ${ROOT}/elasticsearch-${ELASTICSEARCH} ${ROOT}/elasticsearch && \
    rm elasticsearch-${ELASTICSEARCH}.tar.gz
-
-##
-## Install Elastic Search plug-ins
-RUN ${ROOT}/elasticsearch/bin/plugin install cloud-aws
-RUN ${ROOT}/elasticsearch/bin/plugin install discovery-multicast
-RUN ${ROOT}/elasticsearch/bin/plugin install mobz/elasticsearch-head
-RUN ${ROOT}/elasticsearch/bin/plugin install royrusso/elasticsearch-HQ
-RUN ${ROOT}/elasticsearch/bin/plugin install karmi/elasticsearch-paramedic
 
 
 VOLUME ["/mnt/vol1"]
@@ -63,4 +55,5 @@ EXPOSE 9300
 
 ##
 ##
-CMD ${ROOT}/elasticsearch/bin/elasticsearch -Des.insecure.allow.root=true
+CMD ${ROOT}/elasticsearch/bin/elasticsearch
+
