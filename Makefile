@@ -2,14 +2,13 @@
 ## container identity
 IID ?= fogfish
 APP ?= elasticsearch
-VSN ?= 5.3.0
+VSN ?= 5.4.0
 
 ##
 ## image build flags
 DFLAGS = \
    --rm=true \
-   --build-arg JAVA=1.8.0 \
-   --build-arg ELASTICSEARCH=${VSN}
+   --build-arg ELASTIC_VSN=${VSN}
 
 ##
 ## image run flags
