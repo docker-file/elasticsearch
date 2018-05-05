@@ -12,3 +12,6 @@ RUN set -e \
    && rm -rf modules/percolator \
    && rm -rf modules/transport-netty3
 
+COPY config/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+COPY config/jvm.options /usr/share/elasticsearch/config/jvm.options
+
