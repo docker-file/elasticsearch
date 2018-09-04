@@ -4,7 +4,7 @@ network.host: 0.0.0.0
 ## enable site plug-ins
 ## https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0 
 http.cors.enabled: true
-http.cors.allow-origin: /https?:\/\/(localhost(:[0-9]+)?|dev.silvere.cloud)/
+http.cors.allow-origin: /https?:\/\/(localhost(:[0-9]+)?)/
 
 ##
 ## enable for debugging
