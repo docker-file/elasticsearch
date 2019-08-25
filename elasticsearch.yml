@@ -1,8 +1,0 @@
-
-network.host: _eth0:ipv4_
-
-path:
-   data:    /mnt/vol1/data
-   logs:    /mnt/vol1/log
-   work:    /mnt/vol1/work
-

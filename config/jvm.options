@@ -19,8 +19,9 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
--Xms128m
--Xmx128m
+# Use ES_JAVA_OPTS="-Xms128m -Xmx128m"
+# -Xms128m
+# -Xmx128m
 
 ################################################################
 ## Expert settings

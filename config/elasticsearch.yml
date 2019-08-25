@@ -1,3 +1,5 @@
+## @doc
+##   common elastic search configuration
 network.host: 0.0.0.0
 
 ##
@@ -5,6 +7,16 @@ network.host: 0.0.0.0
 ## https://www.elastic.co/blog/running-site-plugins-with-elasticsearch-5-0 
 http.cors.enabled: true
 http.cors.allow-origin: /https?:\/\/(localhost(:[0-9]+)?)/
+
+##
+## Enable attachment of external volume(s)
+path:
+  data: /mnt/vol1/data
+  logs: /mnt/vol1/logs
+
+##
+## Increase a number if same storage co-allocates multiple nodes
+node.max_local_storage_nodes: 3
 
 ##
 ## enable for debugging

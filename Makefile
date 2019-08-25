@@ -2,7 +2,7 @@
 ## container identity
 IID ?= fogfish
 APP ?= elasticsearch
-VSN ?= 6.2.3
+VSN ?= 6.4.1
 
 ##
 ## image build flags
@@ -19,6 +19,11 @@ IFLAGS = \
 ## build container
 docker: Dockerfile
 	docker build ${DFLAGS} -t ${IID}/${APP}:${VSN} . 
+	docker tag ${IID}/${APP}:${VSN} ${IID}/${APP}:latest 
+
+publish:
+	docker push ${IID}/${APP}:${VSN}
+	docker push ${IID}/${APP}:latest
 
 ##
 ## 
